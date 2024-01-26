@@ -1,0 +1,16 @@
+.courses {
+    background-color: #F7F7F7;
+    padding: 80px 150px;
+    height: 100%;
+}
+
+.courses .search-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.courses .course-details .back-button-container {
+    text-align: right;
+    margin-top: 50px;
+}

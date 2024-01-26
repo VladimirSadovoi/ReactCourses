@@ -1,0 +1,9 @@
+.custom-input {
+    height: 50px;
+    width: 350px;
+    border: 1px solid #CFCFCF;
+    border-radius: 4px;
+    box-sizing: border-box;
+    padding-left: 15px;
+    margin-right: 15px;
+}

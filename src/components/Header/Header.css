@@ -1,0 +1,15 @@
+.header-container {
+    display: flex;
+    box-shadow: 1px 1px 4px 0px #00000026;
+    align-items: center;
+    padding: 15px 29px;
+}
+
+.header-container .first-column {
+    flex: 1;
+}
+
+.header-container .custom-span {
+    font-weight: 500;
+    margin-right: 25px;
+}
