@@ -1,0 +1,22 @@
+
+.empty-course-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 300px);
+}
+
+.empty-course-section h3 {
+    display: block;
+    margin: 0;
+}
+
+.empty-course-section span {
+    height: 50px;
+    margin-top: 20px;
+}
+
+.empty-course-section button {
+    display: block;
+}

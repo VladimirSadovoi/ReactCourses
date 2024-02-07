@@ -1,0 +1,71 @@
+.course-info {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.course-info .title {
+    font-size: 32px;
+    margin-top: 0;
+}
+
+.course-info .info {
+    border: 1px solid #0000001F;
+    border-radius: 4px;
+    padding: 50px;
+}
+
+.course-info .info .description {
+    margin: 0;
+}
+
+.course-info .info .columns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.course-info .info .columns .first-column {
+    width: 50%;
+    padding-top: 8px;
+}
+
+.course-info .info .columns .first-column .pair .label {
+    font-size: 20px;
+    font-weight: 700;
+    padding-bottom: 20px;
+}
+
+.course-info .info .columns .first-column .text {
+    padding-right: 35px;
+}
+
+.course-info .info .columns .second-column {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0 0 30px;
+    border-left: 1px solid #CFCFCF;
+}
+
+.course-info .info .columns .second-column .pair {
+    display: flex;
+    justify-content: space-between;
+}
+
+.course-info .info .columns .second-column .pair:not(:first-child) {
+    padding-top: 20px;
+}
+
+.course-info .info .columns .second-column .pair .label {
+    font-weight: bold;
+    margin-right: 8px;
+    width: 100px;
+}
+
+.course-info .info .columns .second-column .pair .text {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
