@@ -8,11 +8,11 @@ import { buttonNames } from '../../constants';
 const Header = () => {
 	return (
 		<header className='header-container'>
-			<div className='first-column'>
+			<div className='logo-column'>
 				<Logo />
 			</div>
-			<div className='second-column'>
-				<span className='custom-span'>User's name</span>
+			<div className='user-info-column'>
+				<span className='user-name'>User's name</span>
 				<Button name={buttonNames.logoutButton} />
 			</div>
 		</header>

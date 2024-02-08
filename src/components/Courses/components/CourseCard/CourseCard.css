@@ -35,27 +35,6 @@
     padding-top: 8px;
 }
 
-.course-card .info .second-column .pair {
-    display: flex;
-    justify-content: space-between;
-}
-
-.course-card .info .second-column .pair .label {
-    font-weight: bold;
-    margin-right: 8px;
-}
-
-.course-card .info .second-column .pair .text {
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.course-card .info .second-column > div {
-    display: block;
-}
-
 .course-card .info .second-column .button-container {
     padding-top: 25px;
 }

@@ -1,9 +1,9 @@
 import './Button.css';
 
-const Button = (params) => {
+const Button = ({ onClick, name }) => {
 	return (
-		<button className='custom-button' onClick={params.onClick}>
-			{params.name}
+		<button className='custom-button' onClick={onClick}>
+			{name}
 		</button>
 	);
 };

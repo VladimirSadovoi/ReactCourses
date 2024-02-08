@@ -48,15 +48,21 @@ export const mockedAuthorsList = [
 ];
 
 export const buttonNames = {
+	loginButton: 'Login',
 	logoutButton: 'Logout',
+	registerButton: 'Register',
 	addNewCourseButton: 'Add new course',
 	backButton: 'Back',
 	searchButton: 'Search',
 	showCourseButton: 'Show course',
+	cancelButton: 'Cancel',
+	createCourseButton: 'Create course',
+	createAuthorButton: 'Create author',
 };
 
 export const placeholders = {
 	enterText: 'Enter your text',
+	inputText: 'Input text',
 };
 
 export const labels = {

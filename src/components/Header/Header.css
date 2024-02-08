@@ -5,11 +5,11 @@
     padding: 15px 29px;
 }
 
-.header-container .first-column {
+.header-container .logo-column {
     flex: 1;
 }
 
-.header-container .custom-span {
+.header-container .user-name {
     font-weight: 500;
     margin-right: 25px;
 }

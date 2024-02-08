@@ -47,25 +47,15 @@
     border-left: 1px solid #CFCFCF;
 }
 
-.course-info .info .columns .second-column .pair {
-    display: flex;
-    justify-content: space-between;
-}
-
-.course-info .info .columns .second-column .pair:not(:first-child) {
+.course-info .info .columns .second-column .label-value:not(:first-child) {
     padding-top: 20px;
 }
 
-.course-info .info .columns .second-column .pair .label {
-    font-weight: bold;
-    margin-right: 8px;
+.course-info .info .columns .second-column .label-value .label {
     width: 100px;
 }
 
-.course-info .info .columns .second-column .pair .text {
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+.back-button-container {
+    text-align: right;
+    margin-top: 50px;
 }
-

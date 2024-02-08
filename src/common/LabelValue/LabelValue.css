@@ -1,0 +1,17 @@
+.label-value {
+    display: flex;
+    justify-content: space-between;
+}
+
+.label-value .label {
+    font-weight: bold;
+    margin: 0 8px 0 0;
+}
+
+.label-value .value {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+}

@@ -22,10 +22,6 @@ const Courses = () => {
 		setSelectedCourseId(null);
 	};
 
-	const handleInputChange = (event) => {
-		setSearchText(event.target.value);
-	};
-
 	const handleSearchButtonClick = () => {
 		const filtered = mockedCoursesList.filter((course) =>
 			course.title.toLowerCase().includes(searchText.toLowerCase())
@@ -41,46 +37,45 @@ const Courses = () => {
 	const shouldShowSearchBar =
 		filteredCourses.length > 0 && selectedCourseId === null;
 
+	const courseDetailsContent = () => {
+		if (!filteredCourses.length && !selectedCourseId) {
+			return <EmptyCourseList />;
+		}
+
+		if (selectedCourseId) {
+			return (
+				<CourseInfo
+					course={filteredCourses.find(
+						(course) => course.id === selectedCourseId
+					)}
+					onBackButtonClick={handleBackButtonClick}
+				/>
+			);
+		}
+
+		return filteredCourses.map((course) => (
+			<div key={course.id}>
+				<CourseCard
+					course={course}
+					onShowCourseClick={() => handleShowCourseClick(course.id)}
+				/>
+			</div>
+		));
+	};
+
 	return (
 		<div className='courses'>
 			{shouldShowSearchBar && (
 				<div className='search-bar'>
 					<SearchBar
-						handleInputChange={handleInputChange}
+						setSearchText={setSearchText}
 						onSearchButtonClick={handleSearchButtonClick}
 					/>
 					<Button name={buttonNames.addNewCourseButton} />
 				</div>
 			)}
 
-			<div className='course-details'>
-				{selectedCourseId ? (
-					<>
-						<CourseInfo
-							course={filteredCourses.find(
-								(course) => course.id === selectedCourseId
-							)}
-						/>
-						<div className='back-button-container'>
-							<Button
-								name={buttonNames.backButton}
-								onClick={handleBackButtonClick}
-							/>
-						</div>
-					</>
-				) : filteredCourses.length ? (
-					filteredCourses.map((course) => (
-						<div key={course.id}>
-							<CourseCard
-								course={course}
-								onShowCourseClick={() => handleShowCourseClick(course.id)}
-							/>
-						</div>
-					))
-				) : (
-					<EmptyCourseList />
-				)}
-			</div>
+			<div className='course-details'>{courseDetailsContent()}</div>
 		</div>
 	);
 };

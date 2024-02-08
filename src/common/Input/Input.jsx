@@ -1,13 +1,18 @@
 import './Input.css';
 
-const Input = ({ placeholder, onChange }) => {
+const Input = ({ label, id, type, placeholder, minLength, onChange }) => {
 	return (
-		<input
-			type='text'
-			placeholder={placeholder}
-			className='custom-input'
-			onChange={onChange}
-		/>
+		<>
+			{label && <label htmlFor={id}>{label}</label>}
+			<input
+				id={id}
+				type={type}
+				placeholder={placeholder}
+				className='custom-input'
+				minLength={minLength > 0 ? minLength : null}
+				onChange={onChange}
+			/>
+		</>
 	);
 };
 
