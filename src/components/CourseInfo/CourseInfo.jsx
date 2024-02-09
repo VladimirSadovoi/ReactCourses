@@ -8,8 +8,15 @@ import LabelValue from '../../common/LabelValue/LabelValue';
 
 import { buttonNames } from '../../constants';
 
-const CourseInfo = ({ course, onBackButtonClick }) => {
-	const { title, description, id, duration, creationDate, authors } = course;
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+
+const CourseInfo = () => {
+	const navigate = useNavigate();
+	const location = useLocation();
+	const { course } = location.state || {};
+	const { courseId } = useParams();
+
+	const { title, description, duration, creationDate, authors } = course;
 
 	return (
 		<>
@@ -23,7 +30,7 @@ const CourseInfo = ({ course, onBackButtonClick }) => {
 							<div className='text'>{description}</div>
 						</div>
 						<div className='second-column'>
-							<LabelValue label='ID' value={id} />
+							<LabelValue label='ID' value={courseId} />
 							<LabelValue label='Duration' value={formatDuration(duration)} />
 							<LabelValue label='Created' value={creationDate} />
 							<LabelValue
@@ -33,9 +40,9 @@ const CourseInfo = ({ course, onBackButtonClick }) => {
 						</div>
 					</div>
 				</div>
-			</div>
-			<div className='back-button-container'>
-				<Button name={buttonNames.backButton} onClick={onBackButtonClick} />
+				<div className='back-button-container'>
+					<Button name={buttonNames.backButton} onClick={() => navigate(-1)} />
+				</div>
 			</div>
 		</>
 	);

@@ -13,8 +13,11 @@ function App() {
 	return (
 		<>
 			<Routes>
+				<Route path='/' element={<Login />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/registration' element={<Registration />} />
 				<Route
-					path='/'
+					path='/courses'
 					element={
 						<div className='page-content'>
 							<Header />
@@ -22,10 +25,24 @@ function App() {
 						</div>
 					}
 				/>
-				<Route path='/login' element={<Login />} />
-				<Route path='/registration' element={<Registration />} />
-				<Route path='/courses/add' element={<CreateCourse />} />
-				<Route path='/courses/:courseId' element={<CourseInfo />} />
+				<Route
+					path='/courses/:courseId'
+					element={
+						<div page-content>
+							<Header />
+							<CourseInfo />
+						</div>
+					}
+				/>
+				<Route
+					path='/courses/add'
+					element={
+						<div page-content>
+							<Header />
+							<CreateCourse />
+						</div>
+					}
+				/>
 			</Routes>
 		</>
 	);

@@ -3,24 +3,16 @@ import './Courses.css';
 import SearchBar from './components/SearchBar/SearchBar';
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
-import CourseInfo from '../../components/CourseInfo/CourseInfo';
 import EmptyCourseList from '../../components/EmptyCourseList/EmptyCourseList';
 
 import { mockedCoursesList, buttonNames } from '../../constants';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Courses = () => {
 	const [filteredCourses, setFilteredCourses] = useState(mockedCoursesList);
-	const [selectedCourseId, setSelectedCourseId] = useState(null);
 	const [searchText, setSearchText] = useState('');
-
-	const handleShowCourseClick = (courseId) => {
-		setSelectedCourseId(courseId);
-	};
-
-	const handleBackButtonClick = () => {
-		setSelectedCourseId(null);
-	};
+	const navigate = useNavigate();
 
 	const handleSearchButtonClick = () => {
 		const filtered = mockedCoursesList.filter((course) =>
@@ -34,31 +26,16 @@ const Courses = () => {
 		}
 	};
 
-	const shouldShowSearchBar =
-		filteredCourses.length > 0 && selectedCourseId === null;
+	const shouldShowSearchBar = filteredCourses.length > 0;
 
 	const courseDetailsContent = () => {
-		if (!filteredCourses.length && !selectedCourseId) {
+		if (!filteredCourses.length) {
 			return <EmptyCourseList />;
-		}
-
-		if (selectedCourseId) {
-			return (
-				<CourseInfo
-					course={filteredCourses.find(
-						(course) => course.id === selectedCourseId
-					)}
-					onBackButtonClick={handleBackButtonClick}
-				/>
-			);
 		}
 
 		return filteredCourses.map((course) => (
 			<div key={course.id}>
-				<CourseCard
-					course={course}
-					onShowCourseClick={() => handleShowCourseClick(course.id)}
-				/>
+				<CourseCard course={course} />
 			</div>
 		));
 	};
@@ -71,7 +48,10 @@ const Courses = () => {
 						setSearchText={setSearchText}
 						onSearchButtonClick={handleSearchButtonClick}
 					/>
-					<Button name={buttonNames.addNewCourseButton} />
+					<Button
+						name={buttonNames.addNewCourseButton}
+						onClick={() => navigate('/courses/add')}
+					/>
 				</div>
 			)}
 

@@ -1,6 +1,13 @@
 import './Textarea.css';
 
-const Textarea = ({ label, id, placeholder, onChange, minLength }) => {
+const Textarea = ({
+	label,
+	id,
+	placeholder,
+	onChange,
+	minLength,
+	required,
+}) => {
 	return (
 		<>
 			{label && <label htmlFor={id}>{label}</label>}
@@ -10,6 +17,7 @@ const Textarea = ({ label, id, placeholder, onChange, minLength }) => {
 				className='custom-textarea'
 				onChange={onChange}
 				minLength={minLength}
+				required={required}
 			/>
 		</>
 	);

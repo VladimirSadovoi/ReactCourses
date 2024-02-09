@@ -8,8 +8,10 @@ import { buttonNames } from '../../../../constants';
 import { formatDuration } from '../../../../helpers/durationFormatter';
 import { findAuthorNames } from '../../../../helpers/courseDataHelper';
 
-const CourseCard = ({ course, onShowCourseClick }) => {
-	const { title, description, authors, duration, creationDate } = course;
+import { Link } from 'react-router-dom';
+
+const CourseCard = ({ course }) => {
+	const { id, title, description, authors, duration, creationDate } = course;
 
 	return (
 		<div className='course-card'>
@@ -27,10 +29,9 @@ const CourseCard = ({ course, onShowCourseClick }) => {
 					<LabelValue label='Created' value={creationDate} />
 
 					<div className='button-container'>
-						<Button
-							name={buttonNames.showCourseButton}
-							onClick={onShowCourseClick}
-						/>
+						<Link to={`/courses/${id}`} state={{ course }}>
+							<Button name={buttonNames.showCourseButton} />
+						</Link>
 					</div>
 				</div>
 			</div>

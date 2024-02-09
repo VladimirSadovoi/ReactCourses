@@ -70,3 +70,5 @@ export const labels = {
 	pleaseAddNewCourseLabel:
 		"Please use 'Add new course' button to add your first course",
 };
+
+export const urls = {};

@@ -7,7 +7,7 @@ const formatDuration = (minutes) => {
 	const formattedHours = formatNumber(hours);
 	const formattedMinutes = formatNumber(remainingMinutes);
 
-	const hoursLabel = hours === 1 ? 'hour' : 'hours';
+	const hoursLabel = hours <= 1 ? 'hour' : 'hours';
 	const durationString = `${formattedHours}:${formattedMinutes} ${hoursLabel}`;
 
 	return durationString;

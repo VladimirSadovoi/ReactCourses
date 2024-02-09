@@ -1,6 +1,14 @@
 import './Input.css';
 
-const Input = ({ label, id, type, placeholder, minLength, onChange }) => {
+const Input = ({
+	label,
+	id,
+	type,
+	placeholder,
+	minLength,
+	required,
+	onChange,
+}) => {
 	return (
 		<>
 			{label && <label htmlFor={id}>{label}</label>}
@@ -10,6 +18,7 @@ const Input = ({ label, id, type, placeholder, minLength, onChange }) => {
 				placeholder={placeholder}
 				className='custom-input'
 				minLength={minLength > 0 ? minLength : null}
+				required={required}
 				onChange={onChange}
 			/>
 		</>
