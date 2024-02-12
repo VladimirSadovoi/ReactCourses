@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import './Input.css';
 
 const Input = ({
@@ -23,6 +25,15 @@ const Input = ({
 			/>
 		</>
 	);
+};
+
+Input.propTypes = {
+	label: PropTypes.string,
+	id: PropTypes.string.isRequired,
+	type: PropTypes.string.isRequired,
+	placeholder: PropTypes.string,
+	minLength: PropTypes.number,
+	onChange: PropTypes.func,
 };
 
 export default Input;

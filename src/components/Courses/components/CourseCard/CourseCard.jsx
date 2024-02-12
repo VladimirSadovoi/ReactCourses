@@ -1,9 +1,11 @@
+import PropTypes from 'prop-types';
+
 import './CourseCard.css';
 
 import Button from '../../../../common/Button/Button';
 import LabelValue from '../../../../common/LabelValue/LabelValue';
 
-import { buttonNames } from '../../../../constants';
+import { buttonNames, labels } from '../../../../constants';
 
 import { formatDuration } from '../../../../helpers/durationFormatter';
 import { findAuthorNames } from '../../../../helpers/courseDataHelper';
@@ -22,11 +24,14 @@ const CourseCard = ({ course }) => {
 				</div>
 				<div className='second-column'>
 					<LabelValue
-						label='Authors'
+						label={labels.authors}
 						value={findAuthorNames(authors).join(', ')}
 					/>
-					<LabelValue label='Duration' value={formatDuration(duration)} />
-					<LabelValue label='Created' value={creationDate} />
+					<LabelValue
+						label={labels.duration}
+						value={formatDuration(duration)}
+					/>
+					<LabelValue label={labels.created} value={creationDate} />
 
 					<div className='button-container'>
 						<Link to={`/courses/${id}`} state={{ course }}>
@@ -37,6 +42,10 @@ const CourseCard = ({ course }) => {
 			</div>
 		</div>
 	);
+};
+
+CourseCard.propTypes = {
+	course: PropTypes.object,
 };
 
 export default CourseCard;

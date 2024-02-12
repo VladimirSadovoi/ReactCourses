@@ -6,49 +6,59 @@ import { useState } from 'react';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
-import { buttonNames, placeholders } from '../../constants';
+import { buttonNames, placeholders, urls, labels } from '../../constants';
+import useAuth from '../../hooks/useAuth';
 
 const Registration = () => {
+	const { performPostRequest } = useAuth();
 	const navigate = useNavigate();
 
-	const [formData, setFormData] = useState({
+	const [newUser, setNewUser] = useState({
 		name: '',
 		email: '',
 		password: '',
 	});
 
+	const [error, setError] = useState('');
+
 	const handleInputChange = (e) => {
-		setFormData({
-			...formData,
+		setNewUser({
+			...newUser,
 			[e.target.id]: e.target.value,
 		});
 	};
 
-	const handleFormSubmit = () => {
-		alert(
-			'name:' +
-				formData.name +
-				',' +
-				'email:' +
-				formData.email +
-				',' +
-				'password:' +
-				formData.password
-		);
+	const handleFormSubmit = async (e) => {
+		e.preventDefault();
 
-		// call api and if successfull
-		navigate('/login');
+		try {
+			const result = await performPostRequest(urls.login, newUser);
+			if (result.successful) {
+				navigate('/login');
+			} else {
+				if (result.errors && result.errors.length > 0) {
+					setError(result.errors[0]);
+				} else if (result.result) {
+					setError(result.result);
+				} else {
+					setError(labels.unknownErrorLabel);
+				}
+			}
+		} catch (error) {
+			console.error(labels.registrationFailedLabel, error.message);
+			setError(error.message);
+		}
 	};
 
 	return (
 		<>
 			<div className='registration-container'>
-				<h2>Registration</h2>
+				<h2>{labels.registration}</h2>
 				<div className='registration-form'>
 					<form onSubmit={handleFormSubmit}>
 						<Input
 							id='name'
-							label='Name'
+							label={labels.name}
 							type='text'
 							placeholder={placeholders.inputText}
 							onChange={handleInputChange}
@@ -56,7 +66,7 @@ const Registration = () => {
 						/>
 						<Input
 							id='email'
-							label='Email'
+							label={labels.email}
 							type='email'
 							placeholder={placeholders.inputText}
 							onChange={handleInputChange}
@@ -64,7 +74,7 @@ const Registration = () => {
 						/>
 						<Input
 							id='password'
-							label='Password'
+							label={labels.password}
 							type='password'
 							placeholder={placeholders.inputText}
 							onChange={handleInputChange}
@@ -74,8 +84,9 @@ const Registration = () => {
 					</form>
 					<div className='link-to-login'>
 						<p>If you have an account you may</p>
-						<Link to='/login'>Login</Link>
+						<Link to='/login'>{labels.login}</Link>
 					</div>
+					{error && <div className='error-message'>{error}</div>}
 				</div>
 			</div>
 		</>

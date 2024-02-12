@@ -69,6 +69,33 @@ export const labels = {
 	emptyListLabel: 'Your list is empty',
 	pleaseAddNewCourseLabel:
 		"Please use 'Add new course' button to add your first course",
+	unknownErrorLabel: 'An unknown error occurred. Please try again later.',
+	loginFailedLabel: 'Login failed:',
+	registrationFailedLabel: 'Register failed:',
+	courseEditCreatePage: 'Course Edit/Create Page',
+	mainInfo: 'Main Info',
+	login: 'Login',
+	registration: 'Registration',
+	id: 'ID',
+	created: 'Created',
+	name: 'Name',
+	email: 'Email',
+	password: 'Password',
+	title: 'Title',
+	description: 'Description',
+	duration: 'Duration',
+	authorName: 'Author Name',
+	courseAuthors: 'Course Authors',
+	authorsList: 'Authors List',
+	authors: 'Authors',
 };
 
-export const urls = {};
+export const urls = {
+	login: 'http://localhost:4000/login',
+	register: 'http://localhost:4000/login',
+	createCourse: 'http://localhost:4000/courses/add',
+};
+
+export const tokens = {
+	authToken: 'authToken',
+};

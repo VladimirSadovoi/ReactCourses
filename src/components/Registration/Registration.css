@@ -30,6 +30,12 @@
     font-weight: bold;
     margin-bottom: 5px;
 }
+
+.registration-container .registration-form .error-message {
+    color: red;
+    text-align: center;
+}
+
 .registration-container .link-to-login {
     text-align: center;
 }

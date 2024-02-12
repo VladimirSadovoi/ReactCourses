@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Courses = () => {
-	const [filteredCourses, setFilteredCourses] = useState(mockedCoursesList);
+	const [courses, setCourses] = useState(mockedCoursesList);
 	const [searchText, setSearchText] = useState('');
 	const navigate = useNavigate();
 
@@ -20,20 +20,20 @@ const Courses = () => {
 		);
 
 		if (filtered.length) {
-			setFilteredCourses(filtered);
+			setCourses(filtered);
 		} else {
-			setFilteredCourses([]);
+			setCourses([]);
 		}
 	};
 
-	const shouldShowSearchBar = filteredCourses.length > 0;
+	const shouldShowSearchBar = courses.length > 0;
 
 	const courseDetailsContent = () => {
-		if (!filteredCourses.length) {
+		if (!courses.length) {
 			return <EmptyCourseList />;
 		}
 
-		return filteredCourses.map((course) => (
+		return courses.map((course) => (
 			<div key={course.id}>
 				<CourseCard course={course} />
 			</div>

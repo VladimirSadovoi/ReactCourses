@@ -6,7 +6,7 @@ import { findAuthorNames } from '../../helpers/courseDataHelper';
 import Button from '../../common/Button/Button';
 import LabelValue from '../../common/LabelValue/LabelValue';
 
-import { buttonNames } from '../../constants';
+import { buttonNames, labels } from '../../constants';
 
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
@@ -24,17 +24,20 @@ const CourseInfo = () => {
 				<h3 className='title'>{title}</h3>
 
 				<div className='info'>
-					<h4 className='description'>Description:</h4>
+					<h4 className='description'>{labels.description}:</h4>
 					<div className='columns'>
 						<div className='first-column'>
 							<div className='text'>{description}</div>
 						</div>
 						<div className='second-column'>
-							<LabelValue label='ID' value={courseId} />
-							<LabelValue label='Duration' value={formatDuration(duration)} />
-							<LabelValue label='Created' value={creationDate} />
+							<LabelValue label={labels.id} value={courseId} />
 							<LabelValue
-								label='Authors'
+								label={labels.duration}
+								value={formatDuration(duration)}
+							/>
+							<LabelValue label={labels.created} value={creationDate} />
+							<LabelValue
+								label={labels.authors}
 								value={findAuthorNames(authors).join(', ')}
 							/>
 						</div>

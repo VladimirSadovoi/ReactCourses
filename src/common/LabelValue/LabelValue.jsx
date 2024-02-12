@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import './LabelValue.css';
 
 const LabelValue = ({ label, value }) => {
@@ -7,6 +9,11 @@ const LabelValue = ({ label, value }) => {
 			<p className='value'>{value}</p>
 		</div>
 	);
+};
+
+LabelValue.propTypes = {
+	label: PropTypes.string.isRequired,
+	value: PropTypes.string.isRequired,
 };
 
 export default LabelValue;
