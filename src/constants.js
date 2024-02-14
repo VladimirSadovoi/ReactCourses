@@ -92,7 +92,8 @@ export const labels = {
 
 export const urls = {
 	login: 'http://localhost:4000/login',
-	register: 'http://localhost:4000/login',
+	register: 'http://localhost:4000/register',
+	getCurrentUser: 'http://localhost:4000/users/me',
 	createCourse: 'http://localhost:4000/courses/add',
 };
 

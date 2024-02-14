@@ -32,7 +32,7 @@ const Registration = () => {
 		e.preventDefault();
 
 		try {
-			const result = await performPostRequest(urls.login, newUser);
+			const result = await performPostRequest(urls.register, newUser);
 			if (result.successful) {
 				navigate('/login');
 			} else {

@@ -7,12 +7,18 @@ import EmptyCourseList from '../../components/EmptyCourseList/EmptyCourseList';
 
 import { mockedCoursesList, buttonNames } from '../../constants';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Courses = () => {
 	const [courses, setCourses] = useState(mockedCoursesList);
 	const [searchText, setSearchText] = useState('');
 	const navigate = useNavigate();
+	const location = useLocation();
+	const newCourse = location.state?.newCourse;
+
+	if (newCourse && !courses.some((course) => course.id === newCourse.id)) {
+		setCourses((prevCourses) => [...prevCourses, newCourse]);
+	}
 
 	const handleSearchButtonClick = () => {
 		const filtered = mockedCoursesList.filter((course) =>

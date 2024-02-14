@@ -43,6 +43,19 @@
     display: inline-block;
 }
 
+.create-course-container .create-course-form .authors-section .authors {
+    display: flex;
+    width: 100%;
+}
+
+.create-course-container .create-course-form .authors-section .authors .authors-list-section {
+    flex: 2;
+}
+
+.create-course-container .create-course-form .authors-section .authors .course-authors-section {
+    flex: 1;
+}
+
 .create-course-container .create-course-form .buttons-container {
     text-align: right;
 }

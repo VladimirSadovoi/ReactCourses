@@ -13,6 +13,7 @@ import CreateCourse from './components/CreateCourse/CreateCourse';
 
 function App() {
 	const isAuthorized = !!localStorage.getItem(tokens.authToken);
+
 	return (
 		<>
 			<Routes>
@@ -25,7 +26,10 @@ function App() {
 								<Courses />
 							</div>
 						) : (
-							<Login />
+							<div className='page-content'>
+								<Header />
+								<Login />
+							</div>
 						)
 					}
 				/>

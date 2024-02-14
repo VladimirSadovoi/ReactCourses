@@ -40,7 +40,7 @@ const Login = () => {
 		try {
 			const result = await performPostRequest(urls.login, user);
 			if (result.successful) {
-				localStorage.setItem(tokens.authToken, result.result);
+				localStorage.setItem(tokens.authToken, result.result.substring(7));
 				navigate('/courses');
 			} else {
 				if (result.errors && result.errors.length > 0) {

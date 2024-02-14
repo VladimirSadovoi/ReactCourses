@@ -3,20 +3,27 @@ import './CreateCourse.css';
 import Input from '../../common/Input/Input';
 import Textarea from '../../common/Textarea/Textarea';
 import Button from '../../common/Button/Button';
+import CreateAuthor from './components/CreateAuthor/CreateAuthor';
+import AuthorItem from './components/AuthorItem/AuthorItem';
 
-import { buttonNames, placeholders, labels } from '../../constants';
+import {
+	buttonNames,
+	placeholders,
+	labels,
+	mockedAuthorsList,
+} from '../../constants';
 
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 import { formatDuration, formatDate } from '../../helpers/durationFormatter';
-// import useRequests from '../../hooks/useAuth';
 
 const CreateCourse = () => {
 	const navigate = useNavigate();
-	// const { performPostRequest } = useRequests();
 
+	const [authors, setAuthors] = useState(mockedAuthorsList);
+	const [courseAuthors, setCourseAuthors] = useState([]);
 	const [newCourse, setNewCourse] = useState({
 		id: uuidv4(),
 		title: '',
@@ -26,39 +33,42 @@ const CreateCourse = () => {
 		authors: [],
 	});
 
-	// const newCoursePayload = {
-	// 	title: newCourse.title,
-	// 	description: newCourse.description,
-	// 	duration: newCourse.duration,
-	// 	authors: newCourse.authors,
-	// };
+	const addNewAuthor = (author) => {
+		setAuthors((prevAuthors) => [...prevAuthors, author]);
+	};
+
+	const onAddCourseAuthor = (authorId) => {
+		const authorToAdd = authors.find((author) => author.id === authorId);
+		const updatedAuthors = authors.filter((author) => author.id !== authorId);
+
+		setAuthors(updatedAuthors);
+		setCourseAuthors([...courseAuthors, authorToAdd]);
+	};
+
+	const onDeleteCourseAuthor = (authorId) => {
+		const authorToDelete = courseAuthors.find(
+			(author) => author.id === authorId
+		);
+		const updatedCourseAuthors = courseAuthors.filter(
+			(author) => author.id !== authorId
+		);
+
+		setAuthors([...authors, authorToDelete]);
+		setCourseAuthors(updatedCourseAuthors);
+	};
 
 	const handleInputChange = (e) => {
 		setNewCourse({
 			...newCourse,
-			[e.target.id]: e.target.value,
+			[e.target.id]:
+				e.target.id === 'duration' ? Number(e.target.value) : e.target.value,
 		});
 	};
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 
-		// try {
-		// 	const result = await performPostRequest(
-		// 		urls.createCourse,
-		// 		newCoursePayload,
-		// 		tokens.authToken
-		// 	);
-		// 	if (result.successful) {
-		// 		navigate('/courses');
-		// 	} else {
-		// 		// add error handling
-		// 	}
-		// } catch (error) {
-		// 	console.error('Login failed:', error.message);
-		// }
-
-		navigate('/courses');
+		navigate('/courses', { state: { newCourse } });
 	};
 
 	return (
@@ -104,20 +114,38 @@ const CreateCourse = () => {
 						</div>
 
 						<div className='authors-section'>
-							<h3>{labels.authors}</h3>
-							<Input
-								id='author-input'
-								label={labels.authorName}
-								type='text'
-								placeholder={placeholders.inputText}
-								minLength={2}
-								//onChange={handleInputChange}
-							/>
-							<Button name={buttonNames.createAuthorButton} />
-
-							<h3>{labels.courseAuthors}</h3>
-
-							<h3>{labels.authorsList}</h3>
+							<div>
+								<h3>{labels.authors}</h3>
+								<CreateAuthor addNewAuthor={addNewAuthor} />
+							</div>
+							<div className='authors'>
+								<div className='authors-list-section'>
+									<h3>{labels.authorsList}</h3>
+									<div className='authors-list'>
+										{authors.map((author) => (
+											<AuthorItem
+												id={author.id}
+												name={author.name}
+												showAddIcon={true}
+												onAddClick={onAddCourseAuthor}
+											/>
+										))}
+									</div>
+								</div>
+								<div className='course-authors-section'>
+									<h3>{labels.courseAuthors}</h3>
+									<div className='authors-list'>
+										{courseAuthors.map((author) => (
+											<AuthorItem
+												id={author.id}
+												name={author.name}
+												showDeleteIcon={true}
+												onDeleteClick={onDeleteCourseAuthor}
+											/>
+										))}
+									</div>
+								</div>
+							</div>
 						</div>
 						<div className='buttons-container'>
 							<Button
