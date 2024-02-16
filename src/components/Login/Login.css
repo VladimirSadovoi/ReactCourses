@@ -16,7 +16,7 @@
 .login-container .login-form {
     border: 1px solid #CFCFCF;
     border-radius: 4px;
-    padding: 50px 100px;
+    padding: 30px 100px 50px 100px;
     background: #fff;
 }
 
@@ -28,12 +28,11 @@
 .login-container .login-form form label {
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin: 20px 0 5px 0;
 }
 
 .login-container .login-form .error-message {
     color: red;
-    text-align: center;
 }
 
 .login-container .link-to-register {
@@ -51,6 +50,14 @@
 }
 
 .login-container .login-form form .custom-input {
-    margin: 0 0 20px 0;
     width: 100%;
+    margin-right: 0;
+}
+
+.login-container .login-form form button {
+    margin-top: 20px;
+}
+
+.login-container .login-form form p {
+    margin: 0;
 }

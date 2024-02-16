@@ -27,6 +27,22 @@ const Login = () => {
 
 	const [error, setError] = useState('');
 
+	const [errors, setErrors] = useState({
+		email: false,
+		password: false,
+	});
+
+	const isFormValid = () => {
+		const newErrors = {
+			email: user.email.trim() === '',
+			password: user.password.trim() === '',
+		};
+
+		setErrors(newErrors);
+
+		return !Object.values(newErrors).some((fieldError) => fieldError);
+	};
+
 	const handleInputChange = (e) => {
 		setUser({
 			...user,
@@ -36,6 +52,10 @@ const Login = () => {
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
+
+		if (!isFormValid()) {
+			return;
+		}
 
 		try {
 			const result = await performPostRequest(urls.login, user);
@@ -70,6 +90,7 @@ const Login = () => {
 							placeholder={placeholders.inputText}
 							onChange={handleInputChange}
 							required
+							showError={errors.email}
 						/>
 						<Input
 							id='password'
@@ -78,6 +99,7 @@ const Login = () => {
 							placeholder={placeholders.inputText}
 							onChange={handleInputChange}
 							required
+							showError={errors.password}
 						/>
 						<Button type='submit' name={buttonNames.loginButton} />
 					</form>

@@ -21,6 +21,24 @@ const Registration = () => {
 
 	const [error, setError] = useState('');
 
+	const [errors, setErrors] = useState({
+		name: false,
+		email: false,
+		password: false,
+	});
+
+	const isFormValid = () => {
+		const newErrors = {
+			name: newUser.name.trim() === '',
+			email: newUser.email.trim() === '',
+			password: newUser.password.trim() === '',
+		};
+
+		setErrors(newErrors);
+
+		return !Object.values(newErrors).some((fieldError) => fieldError);
+	};
+
 	const handleInputChange = (e) => {
 		setNewUser({
 			...newUser,
@@ -30,6 +48,10 @@ const Registration = () => {
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
+
+		if (!isFormValid()) {
+			return;
+		}
 
 		try {
 			const result = await performPostRequest(urls.register, newUser);
@@ -63,6 +85,7 @@ const Registration = () => {
 							placeholder={placeholders.inputText}
 							onChange={handleInputChange}
 							required
+							showError={errors.name}
 						/>
 						<Input
 							id='email'
@@ -71,6 +94,7 @@ const Registration = () => {
 							placeholder={placeholders.inputText}
 							onChange={handleInputChange}
 							required
+							showError={errors.email}
 						/>
 						<Input
 							id='password'
@@ -79,6 +103,7 @@ const Registration = () => {
 							placeholder={placeholders.inputText}
 							onChange={handleInputChange}
 							required
+							showError={errors.password}
 						/>
 						<Button type='submit' name={buttonNames.registerButton} />
 					</form>

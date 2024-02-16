@@ -5,41 +5,32 @@ import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
 import EmptyCourseList from '../../components/EmptyCourseList/EmptyCourseList';
 
-import { mockedCoursesList, buttonNames } from '../../constants';
+import { buttonNames } from '../../constants';
 import { useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+import { useMainContext } from '../../context/MainContext';
 
 const Courses = () => {
-	const [courses, setCourses] = useState(mockedCoursesList);
+	const { allCourses, filterCourses } = useMainContext();
 	const [searchText, setSearchText] = useState('');
 	const navigate = useNavigate();
-	const location = useLocation();
-	const newCourse = location.state?.newCourse;
-
-	if (newCourse && !courses.some((course) => course.id === newCourse.id)) {
-		setCourses((prevCourses) => [...prevCourses, newCourse]);
-	}
 
 	const handleSearchButtonClick = () => {
-		const filtered = mockedCoursesList.filter((course) =>
+		const filteredCourses = allCourses.filter((course) =>
 			course.title.toLowerCase().includes(searchText.toLowerCase())
 		);
-
-		if (filtered.length) {
-			setCourses(filtered);
-		} else {
-			setCourses([]);
-		}
+		filterCourses(filteredCourses);
 	};
 
-	const shouldShowSearchBar = courses.length > 0;
+	const shouldShowSearchBar = allCourses.length > 0;
 
 	const courseDetailsContent = () => {
-		if (!courses.length) {
+		if (!allCourses.length) {
 			return <EmptyCourseList />;
 		}
 
-		return courses.map((course) => (
+		return allCourses.map((course) => (
 			<div key={course.id}>
 				<CourseCard course={course} />
 			</div>

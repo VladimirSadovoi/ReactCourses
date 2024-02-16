@@ -10,6 +10,7 @@ const Input = ({
 	minLength,
 	required,
 	onChange,
+	showError,
 }) => {
 	return (
 		<>
@@ -18,11 +19,13 @@ const Input = ({
 				id={id}
 				type={type}
 				placeholder={placeholder}
-				className='custom-input'
+				className={`custom-input ${showError && required ? 'invalid' : ''}`}
 				minLength={minLength > 0 ? minLength : null}
-				required={required}
 				onChange={onChange}
 			/>
+			{showError && required && (
+				<p className='error-message'>{label} is required</p>
+			)}
 		</>
 	);
 };
@@ -34,6 +37,7 @@ Input.propTypes = {
 	placeholder: PropTypes.string,
 	minLength: PropTypes.number,
 	onChange: PropTypes.func,
+	showError: PropTypes.bool,
 };
 
 export default Input;

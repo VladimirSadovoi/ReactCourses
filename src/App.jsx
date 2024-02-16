@@ -15,71 +15,17 @@ function App() {
 	const isAuthorized = !!localStorage.getItem(tokens.authToken);
 
 	return (
-		<>
+		<div className='page-content'>
+			<Header />
 			<Routes>
-				<Route
-					path='/'
-					element={
-						isAuthorized ? (
-							<div className='page-content'>
-								<Header />
-								<Courses />
-							</div>
-						) : (
-							<div className='page-content'>
-								<Header />
-								<Login />
-							</div>
-						)
-					}
-				/>
-				<Route
-					path='/login'
-					element={
-						<div className='page-content'>
-							<Header />
-							<Login />
-						</div>
-					}
-				/>
-				<Route
-					path='/registration'
-					element={
-						<div className='page-content'>
-							<Header />
-							<Registration />
-						</div>
-					}
-				/>
-				<Route
-					path='/courses'
-					element={
-						<div className='page-content'>
-							<Header />
-							<Courses />
-						</div>
-					}
-				/>
-				<Route
-					path='/courses/:courseId'
-					element={
-						<div page-content>
-							<Header />
-							<CourseInfo />
-						</div>
-					}
-				/>
-				<Route
-					path='/courses/add'
-					element={
-						<div page-content>
-							<Header />
-							<CreateCourse />
-						</div>
-					}
-				/>
+				<Route path='/' element={isAuthorized ? <Courses /> : <Login />} />
+				<Route path='/login' element={<Login />} />
+				<Route path='/registration' element={<Registration />} />
+				<Route path='/courses' element={<Courses />} />
+				<Route path='/courses/:courseId' element={<CourseInfo />} />
+				<Route path='/courses/add' element={<CreateCourse />} />
 			</Routes>
-		</>
+		</div>
 	);
 }
 

@@ -12,8 +12,18 @@ import { findAuthorNames } from '../../../../helpers/courseDataHelper';
 
 import { Link } from 'react-router-dom';
 
+import { useMainContext } from '../../../../context/MainContext';
+
 const CourseCard = ({ course }) => {
-	const { id, title, description, authors, duration, creationDate } = course;
+	const {
+		id,
+		title,
+		description,
+		authors: authorsIds,
+		duration,
+		creationDate,
+	} = course;
+	const { allAuthors } = useMainContext();
 
 	return (
 		<div className='course-card'>
@@ -25,7 +35,7 @@ const CourseCard = ({ course }) => {
 				<div className='second-column'>
 					<LabelValue
 						label={labels.authors}
-						value={findAuthorNames(authors).join(', ')}
+						value={findAuthorNames(allAuthors, authorsIds).join(', ')}
 					/>
 					<LabelValue
 						label={labels.duration}
@@ -34,7 +44,7 @@ const CourseCard = ({ course }) => {
 					<LabelValue label={labels.created} value={creationDate} />
 
 					<div className='button-container'>
-						<Link to={`/courses/${id}`} state={{ course }}>
+						<Link to={`/courses/${id}`}>
 							<Button name={buttonNames.showCourseButton} />
 						</Link>
 					</div>

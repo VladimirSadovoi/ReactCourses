@@ -9,6 +9,7 @@ const Textarea = ({
 	onChange,
 	minLength,
 	required,
+	showError,
 }) => {
 	return (
 		<>
@@ -16,11 +17,13 @@ const Textarea = ({
 			<textarea
 				id={id}
 				placeholder={placeholder}
-				className='custom-textarea'
+				className={`custom-textarea ${showError && required ? 'invalid' : ''}`}
 				onChange={onChange}
 				minLength={minLength}
-				required={required}
 			/>
+			{showError && required && (
+				<p className='error-message'>{label} is required</p>
+			)}
 		</>
 	);
 };
@@ -31,6 +34,7 @@ Textarea.propTypes = {
 	placeholder: PropTypes.string,
 	minLength: PropTypes.number,
 	onChange: PropTypes.func,
+	showError: PropTypes.bool,
 };
 
 export default Textarea;

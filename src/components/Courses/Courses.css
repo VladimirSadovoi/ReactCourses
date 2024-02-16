@@ -1,7 +1,7 @@
 .courses {
     background-color: #F7F7F7;
     padding: 80px 150px;
-    height: 100%;
+    min-height: calc(100vh - 243px);
 }
 
 .courses .search-bar {

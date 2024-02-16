@@ -9,7 +9,10 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
-const CreateAuthor = ({ addNewAuthor }) => {
+import { useMainContext } from '../../../../context/MainContext';
+
+const CreateAuthor = ({ onCreateNewAuthor }) => {
+	const { addNewAuthor } = useMainContext();
 	const [authorName, setAuthorName] = useState('');
 
 	const handleInputChange = (event) => {
@@ -27,6 +30,7 @@ const CreateAuthor = ({ addNewAuthor }) => {
 		};
 
 		addNewAuthor(newAuthor);
+		onCreateNewAuthor(newAuthor);
 	};
 
 	return (
@@ -39,13 +43,17 @@ const CreateAuthor = ({ addNewAuthor }) => {
 				minLength={2}
 				onChange={handleInputChange}
 			/>
-			<Button name={buttonNames.createAuthorButton} onClick={createAuthor} />
+			<Button
+				type='button'
+				name={buttonNames.createAuthorButton}
+				onClick={createAuthor}
+			/>
 		</div>
 	);
 };
 
 CreateAuthor.propTypes = {
-	addNewAuthor: PropTypes.func,
+	onCreateNewAuthor: PropTypes.func,
 };
 
 export default CreateAuthor;

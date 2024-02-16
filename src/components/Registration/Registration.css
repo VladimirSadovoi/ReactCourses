@@ -16,7 +16,7 @@
 .registration-container .registration-form {
     border: 1px solid #CFCFCF;
     border-radius: 4px;
-    padding: 50px 100px;
+    padding: 30px 100px 50px 100px;
     background: #fff;
 }
 
@@ -28,12 +28,11 @@
 .registration-container .registration-form form label {
     font-size: 16px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin: 20px 0 5px 0;
 }
 
 .registration-container .registration-form .error-message {
     color: red;
-    text-align: center;
 }
 
 .registration-container .link-to-login {
@@ -51,5 +50,13 @@
 }
 
 .registration-container .registration-form form .custom-input {
-    margin: 0 0 20px 0;
+    margin-right: 0;
+}
+
+.registration-container .registration-form form button {
+    margin-top: 20px;
+}
+
+.registration-container .registration-form form p {
+    margin: 0;
 }

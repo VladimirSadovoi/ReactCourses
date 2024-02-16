@@ -8,15 +8,22 @@ import LabelValue from '../../common/LabelValue/LabelValue';
 
 import { buttonNames, labels } from '../../constants';
 
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useMainContext } from '../../context/MainContext';
 
 const CourseInfo = () => {
 	const navigate = useNavigate();
-	const location = useLocation();
-	const { course } = location.state || {};
+	const { allCourses, allAuthors } = useMainContext();
 	const { courseId } = useParams();
 
-	const { title, description, duration, creationDate, authors } = course;
+	const course = allCourses.find((course) => course.id === courseId);
+	const {
+		title,
+		description,
+		duration,
+		creationDate,
+		authors: authorsIds,
+	} = course;
 
 	return (
 		<>
@@ -38,7 +45,7 @@ const CourseInfo = () => {
 							<LabelValue label={labels.created} value={creationDate} />
 							<LabelValue
 								label={labels.authors}
-								value={findAuthorNames(authors).join(', ')}
+								value={findAuthorNames(allAuthors, authorsIds).join(', ')}
 							/>
 						</div>
 					</div>
