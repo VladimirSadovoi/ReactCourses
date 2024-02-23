@@ -1,0 +1,63 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #F7F7F7;
+}
+
+.login-container h2 {
+    padding-bottom: 10px;
+    margin-top: -20px;
+}
+
+.login-container .login-form {
+    border: 1px solid #CFCFCF;
+    border-radius: 4px;
+    padding: 30px 100px 50px 100px;
+    background: #fff;
+}
+
+.login-container .login-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container .login-form form label {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 20px 0 5px 0;
+}
+
+.login-container .login-form .error-message {
+    color: red;
+}
+
+.login-container .link-to-register {
+    text-align: center;
+}
+
+.login-container .link-to-register a,
+.login-container .link-to-register p {
+   display: inline-block;
+}
+
+.login-container .link-to-register a {
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+.login-container .login-form form .custom-input {
+    width: 100%;
+    margin-right: 0;
+}
+
+.login-container .login-form form button {
+    margin-top: 20px;
+}
+
+.login-container .login-form form p {
+    margin: 0;
+}

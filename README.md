@@ -1,3 +1,3 @@
 # ReactCourses
 Repository for react courses
-Author: Vladimir Sadovoi
+Author: Vladimir Sadovoi 1

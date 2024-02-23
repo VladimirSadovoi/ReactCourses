@@ -3,84 +3,56 @@ import './Courses.css';
 import SearchBar from './components/SearchBar/SearchBar';
 import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
-import CourseInfo from '../../components/CourseInfo/CourseInfo';
 import EmptyCourseList from '../../components/EmptyCourseList/EmptyCourseList';
 
-import { mockedCoursesList, buttonNames } from '../../constants';
+import { buttonNames } from '../../constants';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { useMainContext } from '../../context/MainContext';
 
 const Courses = () => {
-	const [filteredCourses, setFilteredCourses] = useState(mockedCoursesList);
-	const [selectedCourseId, setSelectedCourseId] = useState(null);
+	const { allCourses, filterCourses } = useMainContext();
 	const [searchText, setSearchText] = useState('');
-
-	const handleShowCourseClick = (courseId) => {
-		setSelectedCourseId(courseId);
-	};
-
-	const handleBackButtonClick = () => {
-		setSelectedCourseId(null);
-	};
-
-	const handleInputChange = (event) => {
-		setSearchText(event.target.value);
-	};
+	const navigate = useNavigate();
 
 	const handleSearchButtonClick = () => {
-		const filtered = mockedCoursesList.filter((course) =>
+		const filteredCourses = allCourses.filter((course) =>
 			course.title.toLowerCase().includes(searchText.toLowerCase())
 		);
-
-		if (filtered.length) {
-			setFilteredCourses(filtered);
-		} else {
-			setFilteredCourses([]);
-		}
+		filterCourses(filteredCourses);
 	};
 
-	const shouldShowSearchBar =
-		filteredCourses.length > 0 && selectedCourseId === null;
+	const shouldShowSearchBar = allCourses.length > 0;
+
+	const courseDetailsContent = () => {
+		if (!allCourses.length) {
+			return <EmptyCourseList />;
+		}
+
+		return allCourses.map((course) => (
+			<div key={course.id}>
+				<CourseCard course={course} />
+			</div>
+		));
+	};
 
 	return (
 		<div className='courses'>
 			{shouldShowSearchBar && (
 				<div className='search-bar'>
 					<SearchBar
-						handleInputChange={handleInputChange}
+						setSearchText={setSearchText}
 						onSearchButtonClick={handleSearchButtonClick}
 					/>
-					<Button name={buttonNames.addNewCourseButton} />
+					<Button
+						name={buttonNames.addNewCourseButton}
+						onClick={() => navigate('/courses/add')}
+					/>
 				</div>
 			)}
 
-			<div className='course-details'>
-				{selectedCourseId ? (
-					<>
-						<CourseInfo
-							course={filteredCourses.find(
-								(course) => course.id === selectedCourseId
-							)}
-						/>
-						<div className='back-button-container'>
-							<Button
-								name={buttonNames.backButton}
-								onClick={handleBackButtonClick}
-							/>
-						</div>
-					</>
-				) : filteredCourses.length ? (
-					filteredCourses.map((course) => (
-						<div key={course.id}>
-							<CourseCard
-								course={course}
-								onShowCourseClick={() => handleShowCourseClick(course.id)}
-							/>
-						</div>
-					))
-				) : (
-					<EmptyCourseList />
-				)}
-			</div>
+			<div className='course-details'>{courseDetailsContent()}</div>
 		</div>
 	);
 };

@@ -1,27 +1,25 @@
 import PropTypes from 'prop-types';
 
-import './Input.css';
+import './Textarea.css';
 
-const Input = ({
+const Textarea = ({
 	label,
 	id,
-	type,
 	placeholder,
+	onChange,
 	minLength,
 	required,
-	onChange,
 	showError,
 }) => {
 	return (
 		<>
 			{label && <label htmlFor={id}>{label}</label>}
-			<input
+			<textarea
 				id={id}
-				type={type}
 				placeholder={placeholder}
-				className={`custom-input ${showError && required ? 'invalid' : ''}`}
-				minLength={minLength > 0 ? minLength : null}
+				className={`custom-textarea ${showError && required ? 'invalid' : ''}`}
 				onChange={onChange}
+				minLength={minLength}
 			/>
 			{showError && required && (
 				<p className='error-message'>{label} is required</p>
@@ -30,14 +28,13 @@ const Input = ({
 	);
 };
 
-Input.propTypes = {
+Textarea.propTypes = {
 	label: PropTypes.string,
 	id: PropTypes.string.isRequired,
-	type: PropTypes.string.isRequired,
 	placeholder: PropTypes.string,
 	minLength: PropTypes.number,
 	onChange: PropTypes.func,
 	showError: PropTypes.bool,
 };
 
-export default Input;
+export default Textarea;

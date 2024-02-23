@@ -1,12 +1,7 @@
-import './Logo.css';
 import logoImage from '../images/logo.png';
 
 const Logo = () => {
-	return (
-		<div>
-			<img src={logoImage} alt='Logo' />
-		</div>
-	);
+	return <img src={logoImage} alt='Company Logo' />;
 };
 
 export default Logo;

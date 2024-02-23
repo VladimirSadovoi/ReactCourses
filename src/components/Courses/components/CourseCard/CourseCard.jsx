@@ -1,45 +1,61 @@
+import PropTypes from 'prop-types';
+
 import './CourseCard.css';
 
 import Button from '../../../../common/Button/Button';
+import LabelValue from '../../../../common/LabelValue/LabelValue';
 
-import { buttonNames } from '../../../../constants';
+import { buttonNames, labels } from '../../../../constants';
 
 import { formatDuration } from '../../../../helpers/durationFormatter';
 import { findAuthorNames } from '../../../../helpers/courseDataHelper';
 
-const CourseCard = ({ course, onShowCourseClick }) => {
+import { Link } from 'react-router-dom';
+
+import { useMainContext } from '../../../../context/MainContext';
+
+const CourseCard = ({ course }) => {
+	const {
+		id,
+		title,
+		description,
+		authors: authorsIds,
+		duration,
+		creationDate,
+	} = course;
+	const { allAuthors } = useMainContext();
+
 	return (
 		<div className='course-card'>
-			<div className='title'>{course.title}</div>
+			<div className='title'>{title}</div>
 			<div className='info'>
 				<div className='first-column'>
-					<div className='description'>{course.description}</div>
+					<div className='description'>{description}</div>
 				</div>
 				<div className='second-column'>
-					<div className='pair'>
-						<div className='label'>Authors:</div>
-						<div className='text'>
-							{findAuthorNames(course.authors).join(', ')}
-						</div>
-					</div>
-					<div className='pair'>
-						<div className='label'>Duration:</div>
-						<div className='text'>{formatDuration(course.duration)}</div>
-					</div>
-					<div className='pair'>
-						<div className='label'>Created:</div>
-						<div className='text'>{course.creationDate}</div>
-					</div>
+					<LabelValue
+						label={labels.authors}
+						value={findAuthorNames(allAuthors, authorsIds).join(', ')}
+					/>
+					<LabelValue
+						label={labels.duration}
+						value={formatDuration(duration)}
+					/>
+					<LabelValue label={labels.created} value={creationDate} />
+
 					<div className='button-container'>
-						<Button
-							name={buttonNames.showCourseButton}
-							onClick={onShowCourseClick}
-						/>
+						<Link to={`/courses/${id}`}>
+							<Button name={buttonNames.showCourseButton} />
+						</Link>
 					</div>
 				</div>
 			</div>
 		</div>
 	);
+};
+
+CourseCard.propTypes = {
+	course: PropTypes.object,
 };
 
 export default CourseCard;

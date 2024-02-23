@@ -1,0 +1,14 @@
+.author-item {
+    display: flex;
+    align-items: center;
+    line-height: 5px;
+}
+
+.author-item p {
+    width: 120px;
+}
+
+.author-item img {
+    cursor: pointer;
+    margin-left: 5px;
+}
