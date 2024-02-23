@@ -11,8 +11,7 @@ import { formatDuration } from '../../../../helpers/durationFormatter';
 import { findAuthorNames } from '../../../../helpers/courseDataHelper';
 
 import { Link } from 'react-router-dom';
-
-import { useMainContext } from '../../../../context/MainContext';
+import { useSelector } from 'react-redux';
 
 const CourseCard = ({ course }) => {
 	const {
@@ -23,7 +22,7 @@ const CourseCard = ({ course }) => {
 		duration,
 		creationDate,
 	} = course;
-	const { allAuthors } = useMainContext();
+	const allAuthors = useSelector((state) => state.authors);
 
 	return (
 		<div className='course-card'>

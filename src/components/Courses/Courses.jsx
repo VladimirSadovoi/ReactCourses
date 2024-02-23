@@ -8,29 +8,34 @@ import EmptyCourseList from '../../components/EmptyCourseList/EmptyCourseList';
 import { buttonNames } from '../../constants';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { useMainContext } from '../../context/MainContext';
+import { useSelector } from 'react-redux';
 
 const Courses = () => {
-	const { allCourses, filterCourses } = useMainContext();
+	const allCourses = useSelector((state) => state.courses);
+	const [filteredCourses, setFilteredCourses] = useState(allCourses);
 	const [searchText, setSearchText] = useState('');
 	const navigate = useNavigate();
 
 	const handleSearchButtonClick = () => {
+		if (!searchText) {
+			setFilteredCourses(allCourses);
+			return;
+		}
+
 		const filteredCourses = allCourses.filter((course) =>
 			course.title.toLowerCase().includes(searchText.toLowerCase())
 		);
-		filterCourses(filteredCourses);
+		setFilteredCourses(filteredCourses);
 	};
 
-	const shouldShowSearchBar = allCourses.length > 0;
+	const shouldShowSearchBar = filteredCourses.length > 0;
 
 	const courseDetailsContent = () => {
-		if (!allCourses.length) {
+		if (!filteredCourses.length) {
 			return <EmptyCourseList />;
 		}
 
-		return allCourses.map((course) => (
+		return filteredCourses.map((course) => (
 			<div key={course.id}>
 				<CourseCard course={course} />
 			</div>
