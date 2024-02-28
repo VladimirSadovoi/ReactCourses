@@ -12,8 +12,8 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { addCourseAction } from '../../store/courses/actions';
 
+import { addCourseAction } from '../../store/courses/actions';
 import { formatDuration, formatDate } from '../../helpers/durationFormatter';
 
 const CreateCourse = () => {

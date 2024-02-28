@@ -9,9 +9,10 @@ import { buttonNames, labels } from '../../../../constants';
 
 import { formatDuration } from '../../../../helpers/durationFormatter';
 import { findAuthorNames } from '../../../../helpers/courseDataHelper';
+import { deleteCourseAction } from '../../../../store/courses/actions';
 
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const CourseCard = ({ course }) => {
 	const {
@@ -23,6 +24,11 @@ const CourseCard = ({ course }) => {
 		creationDate,
 	} = course;
 	const allAuthors = useSelector((state) => state.authors);
+	const dispatch = useDispatch();
+
+	const deleteCourse = () => {
+		dispatch(deleteCourseAction(id));
+	};
 
 	return (
 		<div className='course-card'>
@@ -46,6 +52,11 @@ const CourseCard = ({ course }) => {
 						<Link to={`/courses/${id}`}>
 							<Button name={buttonNames.showCourseButton} />
 						</Link>
+						<Button
+							name={buttonNames.deleteCourseButton}
+							onClick={deleteCourse}
+						/>
+						<Button name={buttonNames.editCourseButton} />
 					</div>
 				</div>
 			</div>

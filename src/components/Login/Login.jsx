@@ -15,10 +15,9 @@ import {
 	tokens,
 	labels,
 } from '../../constants';
-import useRequests from '../../hooks/useAuth';
+import { performPostRequest } from '../../services';
 
 const Login = () => {
-	const { performPostRequest } = useRequests();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -91,7 +90,7 @@ const Login = () => {
 	return (
 		<>
 			<div className='login-container'>
-				<h2>{labels.registration}</h2>
+				<h2>{labels.login}</h2>
 				<div className='login-form'>
 					<form onSubmit={handleFormSubmit}>
 						<Input

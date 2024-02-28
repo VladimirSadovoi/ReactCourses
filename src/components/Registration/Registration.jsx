@@ -7,10 +7,9 @@ import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
 import { buttonNames, placeholders, urls, labels } from '../../constants';
-import useAuth from '../../hooks/useAuth';
+import { performPostRequest } from '../../services';
 
 const Registration = () => {
-	const { performPostRequest } = useAuth();
 	const navigate = useNavigate();
 
 	const [newUser, setNewUser] = useState({
