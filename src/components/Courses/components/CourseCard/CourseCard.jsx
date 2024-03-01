@@ -4,6 +4,8 @@ import './CourseCard.css';
 
 import Button from '../../../../common/Button/Button';
 import LabelValue from '../../../../common/LabelValue/LabelValue';
+import deleteIcon from '../../images/delete.png';
+import editIcon from '../../images/edit.png';
 
 import { buttonNames, labels } from '../../../../constants';
 
@@ -52,11 +54,8 @@ const CourseCard = ({ course }) => {
 						<Link to={`/courses/${id}`}>
 							<Button name={buttonNames.showCourseButton} />
 						</Link>
-						<Button
-							name={buttonNames.deleteCourseButton}
-							onClick={deleteCourse}
-						/>
-						<Button name={buttonNames.editCourseButton} />
+						<Button icon={deleteIcon} onClick={deleteCourse} />
+						<Button icon={editIcon} />
 					</div>
 				</div>
 			</div>

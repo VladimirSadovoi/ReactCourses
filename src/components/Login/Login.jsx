@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
-import { addUserAction } from '../../store/user/actions';
+import { loginAction } from '../../store/user/actions';
 import {
 	buttonNames,
 	placeholders,
@@ -70,7 +70,7 @@ const Login = () => {
 				};
 
 				localStorage.setItem(tokens.authToken, result.result.substring(7));
-				dispatch(addUserAction(newUser));
+				dispatch(loginAction(newUser));
 				navigate('/courses');
 			} else {
 				if (result.errors && result.errors.length > 0) {

@@ -1,15 +1,22 @@
-import { ADD_USER, DELETE_USER } from './types';
+import { LOGIN, LOGOUT } from './types';
 
-export const userInitialState = [];
+export const userInitialState = {
+	isAuth: false,
+	name: '',
+	email: '',
+	token: '',
+};
 
 export const userReducer = (state = userInitialState, action) => {
 	switch (action.type) {
-		case ADD_USER:
-			return [...state, action.payload];
+		case LOGIN:
+			return {
+				...state,
+				...action.payload,
+			};
 
-		case DELETE_USER:
-			const userEmailToDelete = action.payload;
-			return state.filter((user) => user.email !== userEmailToDelete);
+		case LOGOUT:
+			return userInitialState;
 
 		default:
 			return state;

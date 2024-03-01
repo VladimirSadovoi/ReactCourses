@@ -1,7 +1,7 @@
-import { ADD_USER, DELETE_USER } from './types';
+import { LOGIN, LOGOUT } from './types';
 
-export const addUserAction = (payload) => ({ type: ADD_USER, payload });
-export const deleteUserAction = (payload) => ({
-	type: DELETE_USER,
+export const loginAction = (payload) => ({ type: LOGIN, payload });
+export const logoutAction = (payload) => ({
+	type: LOGOUT,
 	payload,
 });

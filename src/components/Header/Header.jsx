@@ -8,16 +8,16 @@ import { buttonNames, tokens } from '../../constants';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { deleteUserAction } from '../../store/user/actions';
+import { logoutAction } from '../../store/user/actions';
 
 const Header = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.user[0]);
+	const user = useSelector((state) => state.user);
 
 	const handleLogoutButtonClick = () => {
 		localStorage.removeItem(tokens.authToken);
-		dispatch(deleteUserAction(user.email));
+		dispatch(logoutAction(user.email));
 		navigate('/login');
 	};
 

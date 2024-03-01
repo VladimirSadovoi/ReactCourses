@@ -37,5 +37,12 @@
 }
 
 .course-card .info .second-column .button-container {
+    display: flex;
     padding-top: 25px;
+}
+
+.course-card .info .second-column .button-container .custom-button.with-icon {
+    width: 60px;
+    padding: 0;
+    margin-left: 10px;
 }
