@@ -1,6 +1,6 @@
 import './App.css';
 
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { tokens } from './constants';
 
@@ -18,7 +18,10 @@ function App() {
 		<div className='page-content'>
 			<Header />
 			<Routes>
-				<Route path='/' element={isAuthorized ? <Courses /> : <Login />} />
+				<Route
+					path='/'
+					element={<Navigate replace to={isAuthorized ? 'courses' : 'login'} />}
+				/>
 				<Route path='/login' element={<Login />} />
 				<Route path='/registration' element={<Registration />} />
 				<Route path='/courses' element={<Courses />} />

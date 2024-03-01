@@ -9,10 +9,11 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
-import { useMainContext } from '../../../../context/MainContext';
+import { useDispatch } from 'react-redux';
+import { addAuthorAction } from '../../../../store/authors/actions';
 
 const CreateAuthor = ({ onCreateNewAuthor }) => {
-	const { addNewAuthor } = useMainContext();
+	const dispatch = useDispatch();
 	const [authorName, setAuthorName] = useState('');
 
 	const handleInputChange = (event) => {
@@ -29,7 +30,7 @@ const CreateAuthor = ({ onCreateNewAuthor }) => {
 			name: authorName,
 		};
 
-		addNewAuthor(newAuthor);
+		dispatch(addAuthorAction(newAuthor));
 		onCreateNewAuthor(newAuthor);
 	};
 

@@ -4,15 +4,17 @@ import './CourseCard.css';
 
 import Button from '../../../../common/Button/Button';
 import LabelValue from '../../../../common/LabelValue/LabelValue';
+import deleteIcon from '../../images/delete.png';
+import editIcon from '../../images/edit.png';
 
 import { buttonNames, labels } from '../../../../constants';
 
 import { formatDuration } from '../../../../helpers/durationFormatter';
 import { findAuthorNames } from '../../../../helpers/courseDataHelper';
+import { deleteCourseAction } from '../../../../store/courses/actions';
 
 import { Link } from 'react-router-dom';
-
-import { useMainContext } from '../../../../context/MainContext';
+import { useSelector, useDispatch } from 'react-redux';
 
 const CourseCard = ({ course }) => {
 	const {
@@ -23,7 +25,12 @@ const CourseCard = ({ course }) => {
 		duration,
 		creationDate,
 	} = course;
-	const { allAuthors } = useMainContext();
+	const allAuthors = useSelector((state) => state.authors);
+	const dispatch = useDispatch();
+
+	const deleteCourse = () => {
+		dispatch(deleteCourseAction(id));
+	};
 
 	return (
 		<div className='course-card'>
@@ -47,6 +54,8 @@ const CourseCard = ({ course }) => {
 						<Link to={`/courses/${id}`}>
 							<Button name={buttonNames.showCourseButton} />
 						</Link>
+						<Button icon={deleteIcon} onClick={deleteCourse} />
+						<Button icon={editIcon} />
 					</div>
 				</div>
 			</div>

@@ -9,11 +9,12 @@ import LabelValue from '../../common/LabelValue/LabelValue';
 import { buttonNames, labels } from '../../constants';
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { useMainContext } from '../../context/MainContext';
+import { useSelector } from 'react-redux';
 
 const CourseInfo = () => {
 	const navigate = useNavigate();
-	const { allCourses, allAuthors } = useMainContext();
+	const allCourses = useSelector((state) => state.courses);
+	const allAuthors = useSelector((state) => state.authors);
 	const { courseId } = useParams();
 
 	const course = allCourses.find((course) => course.id === courseId);

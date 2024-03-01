@@ -11,13 +11,15 @@ import { buttonNames, placeholders, labels } from '../../constants';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
-import { useMainContext } from '../../context/MainContext';
+import { useSelector, useDispatch } from 'react-redux';
 
+import { addCourseAction } from '../../store/courses/actions';
 import { formatDuration, formatDate } from '../../helpers/durationFormatter';
 
 const CreateCourse = () => {
 	const navigate = useNavigate();
-	const { allAuthors, addNewCourse } = useMainContext();
+	const dispatch = useDispatch();
+	const allAuthors = useSelector((state) => state.authors);
 
 	const [authorsList, setAuthorsList] = useState(allAuthors);
 	const [courseAuthors, setCourseAuthors] = useState([]);
@@ -98,7 +100,7 @@ const CreateCourse = () => {
 			return;
 		}
 
-		addNewCourse(newCourse);
+		dispatch(addCourseAction(newCourse));
 		navigate('/courses');
 	};
 

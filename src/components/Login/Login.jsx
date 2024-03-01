@@ -2,10 +2,12 @@ import './Login.css';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
+import { loginAction } from '../../store/user/actions';
 import {
 	buttonNames,
 	placeholders,
@@ -13,11 +15,11 @@ import {
 	tokens,
 	labels,
 } from '../../constants';
-import useRequests from '../../hooks/useAuth';
+import { performPostRequest } from '../../services';
 
 const Login = () => {
-	const { performPostRequest } = useRequests();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [user, setUser] = useState({
 		name: '',
@@ -60,7 +62,15 @@ const Login = () => {
 		try {
 			const result = await performPostRequest(urls.login, user);
 			if (result.successful) {
+				const newUser = {
+					isAuth: true,
+					name: result.user.name,
+					email: result.user.email,
+					token: result.result.substring(7),
+				};
+
 				localStorage.setItem(tokens.authToken, result.result.substring(7));
+				dispatch(loginAction(newUser));
 				navigate('/courses');
 			} else {
 				if (result.errors && result.errors.length > 0) {
@@ -80,7 +90,7 @@ const Login = () => {
 	return (
 		<>
 			<div className='login-container'>
-				<h2>{labels.registration}</h2>
+				<h2>{labels.login}</h2>
 				<div className='login-form'>
 					<form onSubmit={handleFormSubmit}>
 						<Input
