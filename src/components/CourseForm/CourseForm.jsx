@@ -1,4 +1,4 @@
-import './CreateCourse.css';
+import './CourseForm.css';
 
 import Input from '../../common/Input/Input';
 import Textarea from '../../common/Textarea/Textarea';
@@ -8,34 +8,56 @@ import AuthorItem from './components/AuthorItem/AuthorItem';
 
 import { buttonNames, placeholders, labels } from '../../constants';
 
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { addCourseAction } from '../../store/courses/actions';
-import { formatDuration, formatDate } from '../../helpers/durationFormatter';
+import { createCourse, updateCourse } from '../../store/courses/thunk';
+import { createAuthor } from '../../store/authors/thunk';
+import { formatDuration } from '../../helpers/durationFormatter';
 
-const CreateCourse = () => {
+const CourseForm = ({ mode }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const { courseId } = useParams();
+	const allCourses = useSelector((state) => state.courses);
 	const allAuthors = useSelector((state) => state.authors);
 
 	const [authorsList, setAuthorsList] = useState(allAuthors);
 	const [courseAuthors, setCourseAuthors] = useState([]);
 
-	const [newCourse, setNewCourse] = useState({
-		id: uuidv4(),
+	const [course, setCourse] = useState({
 		title: '',
 		description: '',
-		creationDate: formatDate(new Date()),
 		duration: 0,
 		authors: [],
 	});
 
 	const onCreateNewAuthor = (author) => {
-		setAuthorsList((prevAuthors) => [...prevAuthors, author]);
+		dispatch(createAuthor(author));
 	};
+
+	useEffect(() => {
+		setAuthorsList(allAuthors);
+	}, [dispatch, allAuthors]);
+
+	useEffect(() => {
+		if (mode === 'update') {
+			const courseToEdit = allCourses.find((course) => course.id === courseId);
+			const updatedAuthorsList = courseToEdit.authors.map((authorId) =>
+				allAuthors.find((author) => author.id === authorId)
+			);
+
+			setCourse({
+				title: courseToEdit.title,
+				description: courseToEdit.description,
+				duration: courseToEdit.duration,
+				authors: courseToEdit.authors,
+			});
+
+			setCourseAuthors(updatedAuthorsList);
+		}
+	}, [allAuthors, allCourses, courseId, mode]);
 
 	const onAddCourseAuthor = (authorId) => {
 		const authorToAdd = allAuthors.find((author) => author.id === authorId);
@@ -45,7 +67,7 @@ const CreateCourse = () => {
 			prevAuthors.filter((author) => author.id !== authorId)
 		);
 
-		setNewCourse((prevCourse) => ({
+		setCourse((prevCourse) => ({
 			...prevCourse,
 			authors: [...prevCourse.authors, authorId],
 		}));
@@ -61,7 +83,7 @@ const CreateCourse = () => {
 		);
 		setAuthorsList((prevAuthors) => [...prevAuthors, authorToDelete]);
 
-		setNewCourse((prevCourse) => ({
+		setCourse((prevCourse) => ({
 			...prevCourse,
 			authors: prevCourse.authors.filter((id) => id !== authorId),
 		}));
@@ -75,9 +97,9 @@ const CreateCourse = () => {
 
 	const isFormValid = () => {
 		const newErrors = {
-			title: newCourse.title.trim() === '',
-			description: newCourse.description.trim() === '',
-			duration: newCourse.duration === 0,
+			title: course.title.trim() === '',
+			description: course.description.trim() === '',
+			duration: course.duration === 0,
 		};
 
 		setErrors(newErrors);
@@ -86,8 +108,8 @@ const CreateCourse = () => {
 	};
 
 	const handleInputChange = (e) => {
-		setNewCourse({
-			...newCourse,
+		setCourse({
+			...course,
 			[e.target.id]:
 				e.target.id === 'duration' ? Number(e.target.value) : e.target.value,
 		});
@@ -100,8 +122,11 @@ const CreateCourse = () => {
 			return;
 		}
 
-		dispatch(addCourseAction(newCourse));
-		navigate('/courses');
+		const action = mode === 'update' ? updateCourse : createCourse;
+		const payload = mode === 'update' ? { courseId, course } : course;
+		dispatch(action(payload)).then(() => {
+			navigate('/courses');
+		});
 	};
 
 	return (
@@ -115,6 +140,7 @@ const CreateCourse = () => {
 							<Input
 								id='title'
 								label={labels.title}
+								value={course.title}
 								type='text'
 								placeholder={placeholders.inputText}
 								minLength={2}
@@ -125,6 +151,7 @@ const CreateCourse = () => {
 							<Textarea
 								id='description'
 								label={labels.description}
+								value={course.description}
 								placeholder={placeholders.inputText}
 								minLength={2}
 								onChange={handleInputChange}
@@ -140,6 +167,7 @@ const CreateCourse = () => {
 									<Input
 										id='duration'
 										label={labels.duration}
+										value={course.duration}
 										type='number'
 										placeholder={placeholders.inputText}
 										onChange={handleInputChange}
@@ -149,7 +177,7 @@ const CreateCourse = () => {
 								</div>
 								<div className='formatted-duration-info'>
 									<p className='formatted-duration'>
-										{formatDuration(newCourse.duration)}
+										{formatDuration(course.duration)}
 									</p>
 								</div>
 							</div>
@@ -194,7 +222,14 @@ const CreateCourse = () => {
 								name={buttonNames.cancelButton}
 								onClick={() => navigate('/courses')}
 							/>
-							<Button type='submit' name={buttonNames.createCourseButton} />
+							<Button
+								type='submit'
+								name={
+									mode === 'update'
+										? buttonNames.updateCourseButton
+										: buttonNames.createCourseButton
+								}
+							/>
 						</div>
 					</form>
 				</div>
@@ -203,4 +238,4 @@ const CreateCourse = () => {
 	);
 };
 
-export default CreateCourse;
+export default CourseForm;

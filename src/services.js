@@ -1,4 +1,4 @@
-const performPostRequest = async (url, data, authToken = null) => {
+const performRequest = async (url, method, data, authToken = null) => {
 	try {
 		const headers = {
 			'Content-Type': 'application/json',
@@ -9,38 +9,34 @@ const performPostRequest = async (url, data, authToken = null) => {
 		}
 
 		const response = await fetch(url, {
-			method: 'POST',
-			body: JSON.stringify(data),
+			method,
+			body:
+				method === 'POST' || method === 'PUT'
+					? JSON.stringify(data)
+					: undefined,
 			headers,
 		});
 
-		const result = await response.json();
+		const responseBody = await response.text();
+		const result = responseBody ? JSON.parse(responseBody) : {};
 		return result;
 	} catch (error) {
 		throw error;
 	}
 };
 
-const performGetRequest = async (url, authToken = null) => {
-	try {
-		const headers = {
-			'Content-Type': 'application/json',
-		};
-
-		if (authToken) {
-			headers['Authorization'] = `Bearer ${authToken}`;
-		}
-
-		const response = await fetch(url, {
-			method: 'GET',
-			headers,
-		});
-
-		const result = await response.json();
-		return result;
-	} catch (error) {
-		throw error;
-	}
+export const performGetRequest = async (url, authToken = null) => {
+	return performRequest(url, 'GET', undefined, authToken);
 };
 
-export { performPostRequest, performGetRequest };
+export const performPostRequest = async (url, data, authToken = null) => {
+	return performRequest(url, 'POST', data, authToken);
+};
+
+export const performDeleteRequest = async (url, authToken = null) => {
+	return performRequest(url, 'DELETE', undefined, authToken);
+};
+
+export const performPutRequest = async (url, data, authToken = null) => {
+	return performRequest(url, 'PUT', data, authToken);
+};

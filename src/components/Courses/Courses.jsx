@@ -5,16 +5,18 @@ import CourseCard from './components/CourseCard/CourseCard';
 import Button from '../../common/Button/Button';
 import EmptyCourseList from '../../components/EmptyCourseList/EmptyCourseList';
 
-import { buttonNames, urls, labels } from '../../constants';
-import { performGetRequest } from '../../services';
-import { saveCoursesAction } from '../../store/courses/actions';
-import { saveAuthorAction } from '../../store/authors/actions';
+import { buttonNames, tokens } from '../../constants';
+import { getCurrentUser } from '../../store/user/thunk';
+import { fetchCourses } from '../../store/courses/thunk';
+import { fetchAuthors } from '../../store/authors/thunk';
 
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 const Courses = () => {
+	const authToken = localStorage.getItem(tokens.authToken);
+	const user = useSelector((state) => state.user);
 	const allCourses = useSelector((state) => state.courses);
 	const allAuthors = useSelector((state) => state.authors);
 	const [filteredCourses, setFilteredCourses] = useState(allCourses);
@@ -23,34 +25,15 @@ const Courses = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const fetchCourses = async () => {
-			try {
-				const result = await performGetRequest(urls.getCourses);
-				if (result.successful) {
-					dispatch(saveCoursesAction(result.result));
-				}
-			} catch (error) {
-				console.error(labels.getCoursesFailedLabel, error.message);
-			}
-		};
-
-		const fetchAuthors = async () => {
-			try {
-				const result = await performGetRequest(urls.getAuthors);
-				if (result.successful) {
-					dispatch(saveAuthorAction(result.result));
-				}
-			} catch (error) {
-				console.error(labels.getAuthorsFailedLabel, error.message);
-			}
-		};
-
+		if (!user.email && authToken) {
+			dispatch(getCurrentUser(authToken));
+		}
 		if (!allCourses.length) {
-			fetchCourses();
+			dispatch(fetchCourses());
 		}
 
 		if (!allAuthors.length) {
-			fetchAuthors();
+			dispatch(fetchAuthors());
 		}
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps

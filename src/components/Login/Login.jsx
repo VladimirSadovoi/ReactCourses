@@ -2,12 +2,10 @@ import './Login.css';
 
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
 
-import { loginAction } from '../../store/user/actions';
 import {
 	buttonNames,
 	placeholders,
@@ -19,7 +17,6 @@ import { performPostRequest } from '../../services';
 
 const Login = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
 	const [user, setUser] = useState({
 		name: '',
@@ -62,15 +59,7 @@ const Login = () => {
 		try {
 			const result = await performPostRequest(urls.login, user);
 			if (result.successful) {
-				const newUser = {
-					isAuth: true,
-					name: result.user.name,
-					email: result.user.email,
-					token: result.result.substring(7),
-				};
-
 				localStorage.setItem(tokens.authToken, result.result.substring(7));
-				dispatch(loginAction(newUser));
 				navigate('/courses');
 			} else {
 				if (result.errors && result.errors.length > 0) {

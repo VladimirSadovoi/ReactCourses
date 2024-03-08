@@ -1,6 +1,6 @@
-import { LOGIN, LOGOUT } from './types';
+import { ADD_USER, LOGOUT } from './types';
 
-export const loginAction = (payload) => ({ type: LOGIN, payload });
+export const addUserAction = (payload) => ({ type: ADD_USER, payload });
 export const logoutAction = (payload) => ({
 	type: LOGOUT,
 	payload,

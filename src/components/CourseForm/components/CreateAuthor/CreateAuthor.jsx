@@ -6,14 +6,9 @@ import Button from '../../../../common/Button/Button';
 import { buttonNames, placeholders, labels } from '../../../../constants';
 
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
-import { useDispatch } from 'react-redux';
-import { addAuthorAction } from '../../../../store/authors/actions';
-
 const CreateAuthor = ({ onCreateNewAuthor }) => {
-	const dispatch = useDispatch();
 	const [authorName, setAuthorName] = useState('');
 
 	const handleInputChange = (event) => {
@@ -26,11 +21,9 @@ const CreateAuthor = ({ onCreateNewAuthor }) => {
 		}
 
 		const newAuthor = {
-			id: uuidv4(),
 			name: authorName,
 		};
 
-		dispatch(addAuthorAction(newAuthor));
 		onCreateNewAuthor(newAuthor);
 	};
 
