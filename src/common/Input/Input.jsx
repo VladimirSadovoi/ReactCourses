@@ -5,6 +5,7 @@ import './Input.css';
 const Input = ({
 	label,
 	id,
+	value,
 	type,
 	placeholder,
 	minLength,
@@ -17,6 +18,7 @@ const Input = ({
 			{label && <label htmlFor={id}>{label}</label>}
 			<input
 				id={id}
+				value={value}
 				type={type}
 				placeholder={placeholder}
 				className={`custom-input ${showError && required ? 'invalid' : ''}`}
@@ -33,6 +35,7 @@ const Input = ({
 Input.propTypes = {
 	label: PropTypes.string,
 	id: PropTypes.string.isRequired,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	type: PropTypes.string.isRequired,
 	placeholder: PropTypes.string,
 	minLength: PropTypes.number,

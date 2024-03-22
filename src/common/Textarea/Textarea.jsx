@@ -5,6 +5,7 @@ import './Textarea.css';
 const Textarea = ({
 	label,
 	id,
+	value,
 	placeholder,
 	onChange,
 	minLength,
@@ -16,6 +17,7 @@ const Textarea = ({
 			{label && <label htmlFor={id}>{label}</label>}
 			<textarea
 				id={id}
+				value={value}
 				placeholder={placeholder}
 				className={`custom-textarea ${showError && required ? 'invalid' : ''}`}
 				onChange={onChange}
@@ -31,6 +33,7 @@ const Textarea = ({
 Textarea.propTypes = {
 	label: PropTypes.string,
 	id: PropTypes.string.isRequired,
+	value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	placeholder: PropTypes.string,
 	minLength: PropTypes.number,
 	onChange: PropTypes.func,

@@ -11,7 +11,8 @@ import { buttonNames, labels } from '../../../../constants';
 
 import { formatDuration } from '../../../../helpers/durationFormatter';
 import { findAuthorNames } from '../../../../helpers/courseDataHelper';
-import { deleteCourseAction } from '../../../../store/courses/actions';
+import { isAdmin } from '../../../../helpers/commonHelper';
+import { deleteCourse } from '../../../../store/courses/thunk';
 
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,11 +26,12 @@ const CourseCard = ({ course }) => {
 		duration,
 		creationDate,
 	} = course;
+	const user = useSelector((state) => state.user);
 	const allAuthors = useSelector((state) => state.authors);
 	const dispatch = useDispatch();
 
-	const deleteCourse = () => {
-		dispatch(deleteCourseAction(id));
+	const onDeleteCourse = () => {
+		dispatch(deleteCourse(id));
 	};
 
 	return (
@@ -54,8 +56,14 @@ const CourseCard = ({ course }) => {
 						<Link to={`/courses/${id}`}>
 							<Button name={buttonNames.showCourseButton} />
 						</Link>
-						<Button icon={deleteIcon} onClick={deleteCourse} />
-						<Button icon={editIcon} />
+						{isAdmin(user) && (
+							<>
+								<Button icon={deleteIcon} onClick={onDeleteCourse} />
+								<Link to={`/courses/update/${id}`}>
+									<Button icon={editIcon} />
+								</Link>
+							</>
+						)}
 					</div>
 				</div>
 			</div>
