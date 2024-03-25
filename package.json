@@ -70,7 +70,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "npm test -- --bail"
+      "npm run test:nowatch"
     ]
   }
 }

@@ -82,9 +82,7 @@ describe('Courses Component', () => {
 				</BrowserRouter>
 			</Provider>
 		);
-
 		fireEvent.click(screen.getByText('Add new course'));
-
 		const courseFormElement = screen.getByTestId('course-form');
 		expect(courseFormElement).toBeInTheDocument();
 	});
