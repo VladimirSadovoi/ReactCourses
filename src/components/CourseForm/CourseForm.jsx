@@ -131,7 +131,7 @@ const CourseForm = ({ mode }) => {
 
 	return (
 		<>
-			<div className='create-course-container'>
+			<div className='create-course-container' data-testid='course-form'>
 				<h2>{labels.courseEditCreatePage}</h2>
 				<div className='create-course-form'>
 					<form id='create-course-form' onSubmit={handleFormSubmit}>
