@@ -194,6 +194,7 @@ const CourseForm = ({ mode }) => {
 									<div className='authors-list'>
 										{authorsList.map((author) => (
 											<AuthorItem
+												key={author.id}
 												id={author.id}
 												name={author.name}
 												showAddIcon={true}
