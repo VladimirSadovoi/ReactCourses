@@ -131,7 +131,7 @@ const CourseForm = ({ mode }) => {
 
 	return (
 		<>
-			<div className='create-course-container'>
+			<div className='create-course-container' data-testid='course-form'>
 				<h2>{labels.courseEditCreatePage}</h2>
 				<div className='create-course-form'>
 					<form id='create-course-form' onSubmit={handleFormSubmit}>
@@ -194,6 +194,7 @@ const CourseForm = ({ mode }) => {
 									<div className='authors-list'>
 										{authorsList.map((author) => (
 											<AuthorItem
+												key={author.id}
 												id={author.id}
 												name={author.name}
 												showAddIcon={true}

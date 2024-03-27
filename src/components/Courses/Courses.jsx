@@ -63,7 +63,7 @@ const Courses = () => {
 		}
 
 		return filteredCourses.map((course) => (
-			<div key={course.id}>
+			<div key={course.id} data-testid='course-card'>
 				<CourseCard course={course} />
 			</div>
 		));
